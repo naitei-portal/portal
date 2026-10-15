@@ -119,10 +119,13 @@ function setupSettings_() {
     ['期限が近い表示（日）', 7, '期限の何日前からオレンジ表示にするか'],
     ['自分の予定の追加', true, '内定者が自分で予定を追加できるようにする'],
     ['自分の予定の選択肢', 'インターン出勤,アルバイト出勤,オンライン参加,その他', 'カンマ区切り'],
-    ['会社コード', 'sample', '【当社設定】画面URLに付く英数字。会社ごとに変える'],
-    ['画面URL', 'https://example.github.io/portal/', '【当社設定】GitHub Pages のURL'],
+    ['会社コード', 'sample', '※管理項目　触らない※　運営側で設定します'],
+    ['画面URL', 'https://naitei-portal.github.io/portal/', '※管理項目　触らない※　運営側で設定します'],
   ]);
   const vals = sh.getRange(2, 1, sh.getLastRow() - 1, 1).getValues().map(r => r[0]);
+  // 管理項目は編集しようとすると警告を出す
+  sh.getRange(vals.indexOf('会社コード') + 2, 1, 2, 3).setBackground('#f1f3f4')
+    .protect().setDescription('管理項目（運営側で設定）').setWarningOnly(true);
   ['NEW表示', '自分の予定の追加'].forEach(k => sh.getRange(vals.indexOf(k) + 2, 2).insertCheckboxes().check());
   sh.getRange(vals.indexOf('テンプレート') + 2, 2).setDataValidation(
     SpreadsheetApp.newDataValidation().requireValueInList(['スタンダード', 'やわらか', 'きちんと'], true).build());
