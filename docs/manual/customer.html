@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>内定者ポータル 運用ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<div class="page">
+
+<header class="cover">
+  <div class="kind">採用ご担当者さま向け</div>
+  <h1>内定者ポータル 運用ガイド</h1>
+  <p>スプレッドシートに入力するだけで、内定者専用のポータルサイトが更新されます。このガイドでは、毎日の更新のしかたと、内定者への案内のしかたを説明します。</p>
+  <p class="ver">2026年10月版　<a class="noprint" href="customer.pdf">PDF版をダウンロード</a></p>
+</header>
+
+<nav class="toc">
+  <h2>もくじ</h2>
+  <ol>
+    <li><a href="#about">ポータルでできること</a></li>
+    <li><a href="#flow">運用の流れ</a></li>
+    <li><a href="#sheets">シートの一覧</a></li>
+    <li><a href="#rules">共通のルール</a></li>
+    <li><a href="#students">内定者を登録してURLを送る</a></li>
+    <li><a href="#tasks">やることを追加する</a></li>
+    <li><a href="#events">予定を追加する</a></li>
+    <li><a href="#news">お知らせを追加する</a></li>
+    <li><a href="#company">会社紹介（リンク・写真・動画）</a></li>
+    <li><a href="#settings">見た目と文言を変える</a></li>
+    <li><a href="#progress">対応状況を確認する</a></li>
+    <li><a href="#faq">困ったときは</a></li>
+  </ol>
+</nav>
+
+<h2 id="about">1. ポータルでできること</h2>
+<div class="figure">
+  <img src="img/portal-home.png" alt="内定者が見るポータルのホーム画面。今やること、これからの予定、お知らせが並ぶ">
+  <div>
+    <p>内定者は、LINE などで受け取った専用の URL とパスワードでポータルを開きます。スマートフォンでの閲覧を前提にした画面です。</p>
+    <ul>
+      <li><strong>今やること</strong>：提出物や準備するものを、期限の近い順に表示します。内定者は「確認した」「対応した」のボタンで状況を知らせます。</li>
+      <li><strong>これからの予定</strong>：顔合わせやイベントの日時・場所です。インターンの出勤予定などは、内定者が自分で追加することもできます。</li>
+      <li><strong>お知らせ</strong>：追加の案内です。大事なものを1件、一番上に固定できます。</li>
+      <li><strong>会社を知る</strong>：公式サイトや SNS へのリンク、職場の写真、動画やインタビュー記事を載せられます。</li>
+    </ul>
+    <p>内定者ごとに専用のページになっていて、他の内定者の情報は見えません。</p>
+  </div>
+</div>
+
+<h2 id="flow">2. 運用の流れ</h2>
+<p>案内はまずポータルに載せ、LINE では「ポータルを更新しました」と伝えるだけにします。内容はすべてポータルに残るので、LINE のメッセージが流れてしまっても困りません。</p>
+<div class="flow">
+  <div><b>1. 入力</b>スプレッドシートに行を追加する</div>
+  <div><b>2. 公開</b>「公開」にチェックを入れる</div>
+  <div><b>3. 連絡</b>LINE で「ポータルを更新しました」と送る</div>
+  <div><b>4. 確認</b>「進捗一覧」で、誰が対応したかを見る</div>
+</div>
+<p>スプレッドシートを変更すると、ポータルに自動で反映されます。保存ボタンを押したり、何かを公開する操作をしたりする必要はありません。</p>
+
+<h2 id="sheets">3. シートの一覧</h2>
+<p>スプレッドシートの下部に、シートのタブが並んでいます。<strong>青いタブ</strong>はご担当者さまが編集するシート、<strong>グレーのタブ</strong>は自動で書き込まれるシートです。</p>
+<div class="tbl"><table>
+  <tr><th>シート</th><th>内容</th><th>編集</th></tr>
+  <tr><td class="nowrap">設定</td><td>会社名、テーマ色、トップ写真など</td><td>はじめに1回</td></tr>
+  <tr><td class="nowrap">表示文言</td><td>挨拶や見出しの言葉</td><td>必要なときだけ</td></tr>
+  <tr><td class="nowrap">内定者</td><td>内定者の名前と状態。URL・パスワードの発行もここから</td><td>内定者が増えたとき</td></tr>
+  <tr><td class="nowrap">予定</td><td>顔合わせ、イベント、内定式など</td><td>随時</td></tr>
+  <tr><td class="nowrap">やること</td><td>提出物、準備するもの、回答してほしいもの</td><td>随時</td></tr>
+  <tr><td class="nowrap">お知らせ</td><td>追加の案内、固定のお知らせ</td><td>随時</td></tr>
+  <tr><td class="nowrap">リンク</td><td>会社HP、採用サイト、SNS</td><td>はじめに1回</td></tr>
+  <tr><td class="nowrap">ギャラリー</td><td>職場の写真</td><td>はじめに1回</td></tr>
+  <tr><td class="nowrap">コンテンツ</td><td>動画、インタビュー記事</td><td>随時</td></tr>
+  <tr><td class="nowrap">記録_チェック／記録_自分の予定／ログ</td><td>内定者の操作の記録（自動）</td><td>編集しない</td></tr>
+  <tr><td class="nowrap">進捗一覧</td><td>誰が何に対応したかの一覧（自動）</td><td>見るだけ</td></tr>
+</table></div>
+
+<h2 id="rules">4. 共通のルール</h2>
+<p>予定・やること・お知らせ・コンテンツの4つのシートには、共通の列があります。</p>
+<div class="tbl"><table>
+  <tr><th>列</th><th>使い方</th></tr>
+  <tr><td class="nowrap">ID・登録日時</td><td>行に入力すると自動で入ります。<strong>編集しないでください。</strong></td></tr>
+  <tr><td class="nowrap">公開</td><td>チェックを入れたものだけがポータルに表示されます。書きかけのうちは外しておけば、内定者には見えません。</td></tr>
+  <tr><td class="nowrap">公開開始日</td><td>日付を入れると、その日になるまで表示されません。空欄ならすぐに表示されます。</td></tr>
+  <tr><td class="nowrap">対象</td><td>誰に見せるかを決めます（下の表）。空欄は「全員」と同じです。</td></tr>
+</table></div>
+
+<h3>「対象」の書き方</h3>
+<div class="tbl"><table>
+  <tr><th>書き方</th><th>表示される人</th></tr>
+  <tr><td><code>全員</code>（または空欄）</td><td>すべての内定者</td></tr>
+  <tr><td><code>承諾済</code>／<code>未承諾</code></td><td>「内定者」シートの「状態」が一致する人</td></tr>
+  <tr><td><code>インターン中</code> など</td><td>「内定者」シートの「グループ」が一致する人</td></tr>
+  <tr><td><code>S001,S003</code></td><td>指定した内定者IDの人だけ（カンマで区切って複数指定できます）</td></tr>
+</table></div>
+
+<h3>リンク・添付の書き方</h3>
+<p>「リンク」「リンク・添付」の列には、<code>表示名|URL</code> の形で書きます。<code>|</code> は半角の縦線です。セルの中で改行すると、複数付けられます。</p>
+<pre>出欠フォーム|https://forms.gle/xxxxx
+入社承諾書（PDF）|https://drive.google.com/file/d/xxxxx/view</pre>
+<p>Google ドライブのファイルや PDF、表示名に「PDF」「資料」「添付」を含むものは、添付のアイコンで表示されます。セル内の改行は、Mac なら <code>⌘ + Enter</code>、Windows なら <code>Alt + Enter</code> です。</p>
+
+<div class="warn"><span class="label">注意</span>不要になった行は、<strong>削除せずに「公開」のチェックを外してください。</strong>内定者の「確認した」などの記録が ID に紐づいているためです。</div>
+
+<h2 id="students" class="newpage">5. 内定者を登録して URL を送る</h2>
+<ol class="steps">
+  <li>「内定者」シートの空いている行に、<strong>氏名・表示名・状態</strong>を入力します。表示名は、ポータルで「〇〇さん」と呼びかけるときの名前です。グループは必要なときだけ入れます。</li>
+  <li>登録した人の行を選択します。複数の行をまとめて選んでもかまいません。</li>
+  <li>画面上部のメニュー「<strong>内定者ポータル</strong>」→「<strong>URL・パスワードを発行（選択した内定者）</strong>」を押します。</li>
+  <li>案内文が表示されるので、「コピー」を押して LINE などで本人に送ります。</li>
+</ol>
+<div class="warn"><span class="label">注意</span>パスワードは、この画面でしか確認できません。閉じる前に必ず送ってください。わからなくなった場合は、同じ手順で再発行できます。再発行すると、前のパスワードは使えなくなります。</div>
+
+<h3>状態が変わったとき</h3>
+<ul>
+  <li><strong>内定を承諾した</strong>：「状態」を「承諾済」に変えます。対象が「承諾済」の案内が、その人にも表示されるようになります。</li>
+  <li><strong>内定を辞退した</strong>：「状態」を「辞退」にし、「利用」のチェックを外します。すぐにポータルを開けなくなります。</li>
+</ul>
+<p>案内文の文面は、「表示文言」シートの「発行メッセージ」で変えられます。<code>{名前}</code>、<code>{URL}</code>、<code>{パスワード}</code> の部分は、自動で置き換わります。</p>
+
+<h2 id="tasks">6. やることを追加する</h2>
+<p>内定者に、提出や回答などの対応をしてほしいものです。</p>
+<div class="tbl"><table>
+  <tr><th>列</th><th>書くこと</th><th>例</th></tr>
+  <tr><td class="nowrap">タイトル</td><td>何をしてほしいか</td><td>入社承諾書の提出</td></tr>
+  <tr><td class="nowrap">説明</td><td>やり方や注意点（改行できます）</td><td>署名のうえ、郵送してください。</td></tr>
+  <tr><td class="nowrap">期限</td><td>日付。空欄なら「期限なし」</td><td>2026/10/31</td></tr>
+  <tr><td class="nowrap">リンク・添付</td><td>フォームや書類</td><td>入社承諾書（PDF）|https://…</td></tr>
+  <tr><td class="nowrap">完了の条件</td><td>下の2つから選びます</td><td>対応したで完了</td></tr>
+</table></div>
+<ul>
+  <li><strong>対応したで完了</strong>：内定者は「確認した」→「対応した」の2段階で押します。提出物や回答に使います。</li>
+  <li><strong>確認したで完了</strong>：「確認した」を押すだけで完了します。資料を読んでほしいときなどに使います。</li>
+</ul>
+<p>期限の7日前からは、内定者の画面でオレンジ色の「あと◯日」と表示されます。完了したものは、「完了したこと」の一覧に移ります。</p>
+
+<h2 id="events">7. 予定を追加する</h2>
+<div class="tbl"><table>
+  <tr><th>列</th><th>書くこと</th><th>例</th></tr>
+  <tr><td class="nowrap">日付・開始・終了</td><td>終了は空欄でもかまいません</td><td>2026/10/23　14:00　17:00</td></tr>
+  <tr><td class="nowrap">タイトル</td><td>予定の名前</td><td>内定者顔合わせ</td></tr>
+  <tr><td class="nowrap">場所</td><td>会場やオンラインの別</td><td>本社 5F 会議室／Google Meet</td></tr>
+  <tr><td class="nowrap">詳細</td><td>持ち物や服装など</td><td>持ち物：筆記用具</td></tr>
+  <tr><td class="nowrap">リンク</td><td>参加 URL や地図</td><td>参加URL|https://meet.google.com/…</td></tr>
+</table></div>
+<p>日付が過ぎた予定は、ポータルから自動で消えます。内定者が自分で追加した予定（インターンの出勤など）は、「記録_自分の予定」シートで確認できます。</p>
+
+<h2 id="news">8. お知らせを追加する</h2>
+<div class="tbl"><table>
+  <tr><th>列</th><th>書くこと</th></tr>
+  <tr><td class="nowrap">掲載日</td><td>新しい日付のものから順に並びます</td></tr>
+  <tr><td class="nowrap">タイトル・本文</td><td>本文は長くてもかまいません。空行を入れると段落が分かれます。一覧では冒頭だけが表示され、「詳細を見る」で全文が開きます。</td></tr>
+  <tr><td class="nowrap">リンク・添付</td><td>詳細ページの下に表示されます</td></tr>
+  <tr><td class="nowrap">固定</td><td>チェックを入れたものが一番上に固定されます。固定できるのは1件だけで、複数にチェックがある場合は掲載日の新しいものが固定されます。</td></tr>
+</table></div>
+<p>固定のお知らせの下には、新しいものから3件を表示します。それより古いものは「過去のお知らせ」にまとめて表示されます。表示件数は「設定」シートで変えられます。</p>
+
+<h2 id="company">9. 会社紹介（リンク・写真・動画）</h2>
+<h3>リンク</h3>
+<p>「リンク」シートの、使うものの URL 列に入力します。<strong>URL が空欄のものは表示されません。</strong></p>
+
+<h3>写真（ギャラリー・トップ写真）</h3>
+<ol class="steps">
+  <li>Google ドライブに画像用のフォルダを作り、フォルダを右クリック →「共有」→ 一般的なアクセスを「<strong>リンクを知っている全員</strong>」にします。</li>
+  <li>そのフォルダに写真を入れ、写真を右クリック →「共有」→「リンクをコピー」します。</li>
+  <li>「ギャラリー」シートの「画像」列に貼り、キャプションを書いて「公開」にチェックを入れます。トップ写真は、「設定」シートの「トップ写真」に貼ります。</li>
+</ol>
+<p>ギャラリーは3〜5枚がおすすめです（最大10枚）。横長の写真がきれいに表示されます。</p>
+<div class="warn"><span class="label">注意</span>共有設定をしていない写真は表示されません。また、リンクを知っている人は誰でも見られる状態になるので、社外秘の写真は使わないでください。</div>
+
+<h3>動画・インタビュー記事（コンテンツ）</h3>
+<div class="tbl"><table>
+  <tr><th>種類</th><th>書き方</th></tr>
+  <tr><td class="nowrap">動画</td><td>YouTube に「限定公開」でアップロードし、その URL を「URL」列に貼ります。サムネイルは自動で表示されます。</td></tr>
+  <tr><td class="nowrap">記事</td><td>「本文」列に記事を書きます。お知らせと同じく、空行で段落が分かれます。</td></tr>
+  <tr><td class="nowrap">外部リンク</td><td>見てほしいページの URL を「URL」列に貼ります。</td></tr>
+</table></div>
+<p>「補足」には「3分」「2024年入社」などの短い情報を書きます。</p>
+
+<h2 id="settings">10. 見た目と文言を変える</h2>
+<h3>設定シート</h3>
+<div class="tbl"><table>
+  <tr><th>項目</th><th>内容</th></tr>
+  <tr><td class="nowrap">会社名・ポータル名</td><td>画面上部に表示されます</td></tr>
+  <tr><td class="nowrap">テンプレート</td><td>スタンダード／やわらか／きちんと の3種類から選びます</td></tr>
+  <tr><td class="nowrap">テーマ色</td><td><code>#2f6fb3</code> のような色コードです。ボタンや背景に使われます</td></tr>
+  <tr><td class="nowrap">トップ写真</td><td>空欄の場合は、テーマ色のグラデーションになります</td></tr>
+  <tr><td class="nowrap">問い合わせ先の表示</td><td>ログイン画面に「〇〇までご連絡ください」と表示されます</td></tr>
+  <tr><td class="nowrap">ログイン保持日数</td><td>パスワードを入れ直さずに使える日数です</td></tr>
+  <tr><td class="nowrap">自分の予定の追加・選択肢</td><td>内定者が自分で予定を追加できるか、追加するときの選択肢</td></tr>
+</table></div>
+<div class="warn"><span class="label">注意</span>「※管理項目　触らない※」と書かれた行（会社コード・画面URL）は変更しないでください。ポータルにつながらなくなります。</div>
+
+<h3>表示文言シート</h3>
+<p>見出しやメニューの言葉を変えられます。「文言」列に書いた言葉が使われ、空欄の場合は「既定の文言」が使われます。<code>{名前}</code> は内定者の表示名に置き換わります。</p>
+
+<h2 id="progress">11. 対応状況を確認する</h2>
+<p>「<strong>進捗一覧</strong>」シートに、内定者 × やることの表が自動で作られます。内定者がボタンを押すたびに更新されます。</p>
+<div class="tbl"><table>
+  <tr><th>表示</th><th>意味</th></tr>
+  <tr><td style="background:#fde2e1">未確認</td><td>まだ見ていない、またはボタンを押していない</td></tr>
+  <tr><td style="background:#fff4c2">確認済</td><td>内容は確認したが、対応はまだ</td></tr>
+  <tr><td style="background:#d9f2e3">対応済</td><td>完了</td></tr>
+  <tr><td style="background:#f1f3f4">対象外</td><td>その人には表示していない</td></tr>
+  <tr><td><strong>太字</strong></td><td>期限を過ぎているのに完了していない</td></tr>
+</table></div>
+<p>「前回ログイン」が「未ログイン」の人は、まだ一度もポータルを開いていません。やることを追加・変更した直後に表を最新にしたいときは、メニュー「内定者ポータル」→「進捗一覧を更新」を押してください。</p>
+
+<h2 id="faq">12. 困ったときは</h2>
+<div class="tbl"><table>
+  <tr><th>こんなとき</th><th>確認すること</th></tr>
+  <tr><td>追加した内容がポータルに出ない</td><td>「公開」にチェックが入っているか。「公開開始日」が未来の日付になっていないか。「対象」がその人に合っているか。</td></tr>
+  <tr><td>写真が表示されない</td><td>ドライブの共有設定が「リンクを知っている全員」になっているか。</td></tr>
+  <tr><td>内定者がパスワードを忘れた</td><td>「内定者」シートでその人の行を選び、「URL・パスワードを発行」で再発行して送り直します。</td></tr>
+  <tr><td>「ロックしています」と表示された</td><td>パスワードを5回続けて間違えると、15分間ログインできなくなります。時間をおいてから試してもらってください。</td></tr>
+  <tr><td>内定者がスマホを変えた</td><td>同じ URL とパスワードで開けます。パスワードがわからなければ再発行してください。</td></tr>
+  <tr><td>ID がずれた・消えた</td><td>自動の列なので、手で直さずに運営担当までご連絡ください。</td></tr>
+  <tr><td>その他、わからないこと</td><td>運営担当までお気軽にご連絡ください。</td></tr>
+</table></div>
+
+<div class="foot">内定者の住所・電話番号・学校名などの個人情報は、ポータルに載せないでください。</div>
+</div>
+</body>
+</html>

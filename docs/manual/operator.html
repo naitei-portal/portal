@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>内定者ポータル 導入手順書</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<div class="page">
+
+<header class="cover">
+  <div class="kind">運営担当者向け</div>
+  <h1>内定者ポータル 導入手順書</h1>
+  <p>新しい会社にポータルを用意するとき、プログラムを更新するとき、トラブルが起きたときの手順です。お客様が日々行う入力作業は「<a href="customer.html">運用ガイド</a>」にまとめています。</p>
+  <p class="ver">2026年10月版　<a class="noprint" href="operator.pdf">PDF版をダウンロード</a></p>
+</header>
+
+<nav class="toc">
+  <h2>もくじ</h2>
+  <ol>
+    <li><a href="#overview">全体の仕組み</a></li>
+    <li><a href="#template">ひな形を作る（最初に1回）</a></li>
+    <li><a href="#new">新しい会社を追加する</a></li>
+    <li><a href="#code">会社コードを登録する</a></li>
+    <li><a href="#handoff">お客様に渡す</a></li>
+    <li><a href="#own">お客様のアカウントで作る場合</a></li>
+    <li><a href="#update">プログラムを更新する</a></li>
+    <li><a href="#year">年度を切り替える</a></li>
+    <li><a href="#trouble">トラブル対応</a></li>
+    <li><a href="#rules">守ること</a></li>
+  </ol>
+</nav>
+
+<h2 id="overview">1. 全体の仕組み</h2>
+<p>画面は全社共通のものを1つだけ公開し、URL に付いた<strong>会社コード</strong>で、どの会社のスプレッドシートにつなぐかを切り替えます。</p>
+<pre>https://naitei-portal.github.io/portal/?c=会社コード&amp;k=個人キー
+                                         │
+           docs/clients.js の対応表 → その会社の GAS → その会社のスプレッドシート</pre>
+<div class="tbl"><table>
+  <tr><th>もの</th><th>場所</th><th>役割</th></tr>
+  <tr><td class="nowrap">ポータル用アカウント</td><td>Google（Gmail）</td><td>ひな形と各社のスプレッドシートの持ち主。GitHub のログインにも使う</td></tr>
+  <tr><td class="nowrap">画面</td><td>GitHub <code>naitei-portal/portal</code> の <code>docs/</code></td><td>全社共通。GitHub Pages で公開</td></tr>
+  <tr><td class="nowrap">会社コードの対応表</td><td><code>docs/clients.js</code></td><td>会社コード → 各社の GAS の URL</td></tr>
+  <tr><td class="nowrap">ひな形</td><td>ポータル用アカウントのドライブ</td><td>新しい会社用にコピーするもと。デプロイしない</td></tr>
+  <tr><td class="nowrap">各社のスプレッドシート</td><td>ポータル用アカウント（またはお客様のアカウント）</td><td>データと GAS（API）。会社ごとに1つ</td></tr>
+  <tr><td class="nowrap">GAS のコード</td><td>GitHub の <code>gas/</code></td><td>スプレッドシートに貼るコードの原本</td></tr>
+</table></div>
+
+<h2 id="template">2. ひな形を作る（最初に1回）</h2>
+<ol class="steps">
+  <li>ポータル用アカウントで新しいスプレッドシートを作り、名前を「<strong>【ひな形】内定者ポータル</strong>」にします。</li>
+  <li>「拡張機能」→「Apps Script」を開き、左の歯車「プロジェクトの設定」→ タイムゾーンを「<strong>(GMT+09:00) 日本標準時 - 東京</strong>」にします。</li>
+  <li>最初からある <code>コード.gs</code> を削除し、「＋」→「スクリプト」で次の5つを作ります。中身は GitHub の <code>gas/</code> フォルダから貼ります：<code>Config</code>・<code>Common</code>・<code>Setup</code>・<code>Admin</code>・<code>Api</code></li>
+  <li>保存してスプレッドシートを再読み込みし、メニュー「内定者ポータル」→「<strong>初期セットアップ</strong>」を押します。</li>
+  <li>権限の確認が出たら、自分のアカウントを選び、「詳細」→「（安全ではないページ）に移動」→「許可」の順に進みます。その後、もう一度「初期セットアップ」を押します。</li>
+</ol>
+<div class="note"><span class="label">メモ</span>ひな形はデプロイしません。内定者の登録や URL の発行もしません。サンプルデータは、お客様への記入例として残しておきます。</div>
+
+<h2 id="new" class="newpage">3. 新しい会社を追加する</h2>
+<ol class="steps">
+  <li>ひな形を開き、「ファイル」→「<strong>コピーを作成</strong>」を押します。名前は「【株式会社〇〇】内定者ポータル 2027」のようにします。Apps Script も一緒にコピーされます。</li>
+  <li>コピーした方を開き、「拡張機能」→「Apps Script」→ プロジェクトの設定でタイムゾーンが東京になっていることを確認します。</li>
+  <li>「<strong>デプロイ</strong>」→「<strong>新しいデプロイ</strong>」→ 歯車から「ウェブアプリ」を選び、次のように設定して「デプロイ」を押します。権限の確認が出たら許可します。
+    <div class="tbl" style="margin-top:8px"><table>
+      <tr><th>説明</th><td>v1</td></tr>
+      <tr><th>次のユーザーとして実行</th><td>自分</td></tr>
+      <tr><th>アクセスできるユーザー</th><td>全員</td></tr>
+    </table></div>
+  </li>
+  <li>表示された<strong>ウェブアプリの URL</strong>（<code>https://script.google.com/macros/s/…/exec</code>）をコピーします。</li>
+  <li>会社コードを決めて、対応表に登録します（次の章）。</li>
+  <li>スプレッドシートの「設定」シートで、「<strong>会社コード</strong>」に決めたコードを入れます。「画面URL」が <code>https://naitei-portal.github.io/portal/</code> になっていることも確認します。</li>
+  <li>会社名・ポータル名・テーマ色など、わかっている項目を入れます。</li>
+  <li>動作を確認します。「内定者」シートに自分をテスト用に登録し、URL・パスワードを発行して、スマホで開けるか確かめます。確認が終わったら、その行の「利用」のチェックを外し、「状態」を「辞退」にします（行は削除しません）。</li>
+</ol>
+
+<h2 id="code">4. 会社コードを登録する</h2>
+<p>会社コードは URL に入り、対応表は公開されます。<strong>社名がわかる文字列は使わず</strong>、英小文字と数字のランダムな8文字にします（例：<code>k7f3x9qa</code>）。</p>
+<ol class="steps">
+  <li>ポータル用アカウントで GitHub にログインし、<code>github.com/naitei-portal/portal</code> を開きます。</li>
+  <li><code>docs</code> →  <code>clients.js</code> を開き、右上の鉛筆マーク（Edit this file）を押します。</li>
+  <li><code>window.PORTAL_CLIENTS = {</code> の下に、次の形で1行追加します。最後のカンマを忘れないでください。
+<pre>  k7f3x9qa: 'https://script.google.com/macros/s/…/exec',</pre>
+    社名をコメントで書くと公開されてしまうので、どのコードがどの会社かは社内の管理表で管理します。</li>
+  <li>「Commit changes…」→ そのまま「Commit changes」を押します。1〜2分で反映されます。</li>
+</ol>
+<div class="note"><span class="label">メモ</span>この作業は Claude Code に「会社コードを作って登録して」と依頼しても行えます。その場合は、ウェブアプリの URL を伝えてください。</div>
+
+<h2 id="handoff">5. お客様に渡す</h2>
+<ol class="steps">
+  <li>スプレッドシート右上の「共有」から、お客様の採用ご担当者を<strong>編集者</strong>として追加します。</li>
+  <li>運用ガイドの URL をお送りします：<code>https://naitei-portal.github.io/portal/manual/customer.html</code></li>
+  <li>初回は一緒に画面を見ながら、内定者の登録と URL の発行を1人分行うとスムーズです。</li>
+</ol>
+<div class="warn"><span class="label">注意</span>スプレッドシートは「リンクを知っている全員」で共有しないでください。内定者の名前や記録が誰でも見られる状態になります。共有は、必ず個人のアカウントを指定して行います。</div>
+
+<h2 id="own">6. お客様のアカウントで作る場合</h2>
+<p>データをお客様の管理下に置きたい場合は、お客様の Google アカウントで構築します。</p>
+<ol class="steps">
+  <li>お客様が <strong>Google Workspace</strong> を使っている場合は、組織外との共有が許可されているかを先に確認します。許可されていないと、ウェブアプリの「アクセスできるユーザー」で「全員」を選べません（管理コンソール →「アプリ」→「Google Workspace」→「ドライブとドキュメント」→「共有設定」）。</li>
+  <li>ひな形をお客様のアカウントに閲覧者として共有し、お客様側で「ファイル」→「コピーを作成」してもらいます。</li>
+  <li>以降は「3. 新しい会社を追加する」の手順 2 からと同じです。デプロイは、お客様のアカウントで行います。</li>
+  <li>ウェブアプリの URL を受け取り、会社コードを登録します。</li>
+</ol>
+<p>プログラムの更新も、お客様のアカウントでの作業になります。更新が発生したときは、手順をお送りするか、画面共有で一緒に行います。</p>
+
+<h2 id="update" class="newpage">7. プログラムを更新する</h2>
+<p>スプレッドシートの内容（予定やお知らせなど）の変更は、自動で反映されます。この章は、<strong>プログラム自体を直したとき</strong>の作業です。</p>
+<h3>画面（docs/）を直したとき</h3>
+<p>GitHub に反映すれば、全社の画面が1〜2分で更新されます。各社のスプレッドシートでの作業はありません。</p>
+<h3>GAS（gas/）を直したとき</h3>
+<p>各社のスプレッドシートはそれぞれ別のコードを持っているので、会社ごとに更新します。</p>
+<ol class="steps">
+  <li>そのスプレッドシートの Apps Script を開き、変更のあったファイルの中身を GitHub の最新版に貼り替えて保存します。</li>
+  <li><code>Api.gs</code> を変えた場合は、「デプロイ」→「<strong>デプロイを管理</strong>」→ 鉛筆マーク →「バージョン」を「新バージョン」にして、「デプロイ」を押します。</li>
+  <li>ひな形にも同じ変更を反映します。</li>
+</ol>
+<div class="warn"><span class="label">注意</span>「新しいデプロイ」を選ぶと、ウェブアプリの URL が変わり、ポータルにつながらなくなります。更新は必ず「デプロイを管理」から行います。もし URL が変わってしまった場合は、<code>clients.js</code> の URL を新しいものに書き換えてください。</div>
+
+<h2 id="year">8. 年度を切り替える</h2>
+<ol class="steps">
+  <li>入社後、旧年度のスプレッドシートの「内定者」シートで、全員の「利用」のチェックを外します。</li>
+  <li>新年度用に、ひな形から新しくスプレッドシートを作ります（「3. 新しい会社を追加する」と同じ手順）。</li>
+  <li>新しい会社コードを作って登録します。旧年度の URL は使えないままにしておきます。</li>
+  <li>旧年度の予定・お知らせ・コンテンツで使い回したいものは、新しいスプレッドシートにコピーします。</li>
+</ol>
+
+<h2 id="trouble">9. トラブル対応</h2>
+<div class="tbl"><table>
+  <tr><th>症状</th><th>原因と対応</th></tr>
+  <tr><td>「URLが正しくありません」と表示される</td><td>URL の <code>c=</code> の会社コードが <code>clients.js</code> に登録されていない。会社コードの登録と、「設定」シートの会社コードが一致しているかを確認する。</td></tr>
+  <tr><td>「このURLは使えません」と表示される</td><td>その内定者の「利用」が外れている、または個人キーが違う。「内定者」シートを確認し、必要なら再発行する。</td></tr>
+  <tr><td>「読み込みに失敗しました」と表示される</td><td>GAS の URL が変わった、またはデプロイの権限が外れた。「デプロイを管理」で URL とアクセス（全員）を確認する。</td></tr>
+  <tr><td>ロックを今すぐ解除したい</td><td>「内定者」シートの非表示列（列見出しの間の矢印で再表示）にある「ロック解除日時」を消す。または再発行する。</td></tr>
+  <tr><td>画面がおかしい、エラーが出る</td><td>スプレッドシートの「ログ」シートにエラーが記録される。内容を控えて Claude Code に相談する。</td></tr>
+  <tr><td>ID が重複した、消えた</td><td>行を削除したりコピーしたりすると起きる。手で直さず、どの行で起きたかを控えて相談する。</td></tr>
+</table></div>
+
+<h2 id="rules">10. 守ること</h2>
+<ul>
+  <li><strong>GitHub に内定者の情報を置かない。</strong>スプレッドシートを書き出したファイル（xlsx・csv）は、アップロードしないでください。</li>
+  <li><strong>会社コードに社名を使わない。</strong>コードと会社の対応は、社内の管理表で管理します。</li>
+  <li><strong>スプレッドシートを「リンクを知っている全員」で共有しない。</strong></li>
+  <li><strong>ポータル用アカウントは2段階認証を有効にし</strong>、パスワードは社内のパスワード管理の仕組みで共有します。</li>
+  <li><strong>内定者の住所・電話番号・学校名などはポータルに載せない。</strong></li>
+</ul>
+
+<div class="foot">お客様向けの入力方法は「<a href="customer.html">運用ガイド</a>」を参照してください。</div>
+</div>
+</body>
+</html>

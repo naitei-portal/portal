@@ -1,0 +1,76 @@
+/* 説明書の共通スタイル。画面ではそのまま読め、印刷すると A4 縦になる。 */
+:root {
+  --ink: #1d2430; --muted: #5f6b7d; --line: #dde2ea; --accent: #2f6fb3;
+  --soft: #eef3fa; --warn: #b4441a; --warn-soft: #fdf0ea; --bg: #ffffff;
+  --f-body: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --f-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 14px; line-height: 1.8; }
+.page { max-width: 780px; margin: 0 auto; padding: 40px max(20px, env(safe-area-inset-right, 0px)) 80px max(20px, env(safe-area-inset-left, 0px)); }
+
+.cover { border-bottom: 3px solid var(--accent); padding-bottom: 20px; margin-bottom: 28px; }
+.cover .kind { color: var(--accent); font-weight: 700; font-size: 13px; letter-spacing: .1em; }
+.cover h1 { font-size: 28px; line-height: 1.4; margin: 6px 0 8px; }
+.cover p { margin: 0; color: var(--muted); }
+.cover .ver { font-size: 12px; margin-top: 10px; }
+
+.toc { background: var(--soft); border-radius: 10px; padding: 16px 20px; margin-bottom: 32px; }
+.toc h2 { font-size: 14px; margin: 0 0 6px; border: 0; padding: 0; }
+.toc ol { margin: 0; padding-left: 1.4em; columns: 2; column-gap: 32px; }
+.toc a { color: var(--ink); text-decoration: none; }
+
+h2 { font-size: 20px; margin: 44px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--line); text-wrap: balance; }
+h3 { font-size: 16px; margin: 28px 0 8px; }
+p { margin: 0 0 10px; }
+ul, ol { margin: 0 0 12px; padding-left: 1.4em; }
+li { margin-bottom: 4px; }
+a { color: var(--accent); overflow-wrap: anywhere; }
+code { font-family: var(--f-mono); font-size: 12.5px; background: var(--soft); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+pre { font-family: var(--f-mono); font-size: 12.5px; background: var(--soft); padding: 12px 14px; border-radius: 8px; overflow-x: auto; line-height: 1.6; margin: 0 0 12px; }
+strong { font-weight: 700; }
+
+.tbl { overflow-x: auto; margin: 0 0 14px; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+th { background: var(--soft); font-weight: 700; white-space: nowrap; }
+td.nowrap { white-space: nowrap; }
+
+.steps { counter-reset: step; list-style: none; padding: 0; display: grid; gap: 10px; }
+.steps > li { counter-increment: step; position: relative; padding-left: 40px; margin: 0; }
+.steps > li::before { content: counter(step); position: absolute; left: 0; top: 1px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; font-size: 13px; display: grid; place-items: center; }
+
+.note, .warn { border-radius: 8px; padding: 10px 14px; margin: 0 0 14px; font-size: 13px; }
+.note { background: var(--soft); }
+.warn { background: var(--warn-soft); color: var(--warn); }
+.note > :last-child, .warn > :last-child { margin-bottom: 0; }
+.label { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .06em; margin-right: 6px; }
+
+.flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 0 0 16px; }
+.flow div { border: 1px solid var(--line); border-radius: 8px; padding: 10px; font-size: 12.5px; position: relative; min-width: 0; }
+.flow b { display: block; color: var(--accent); font-size: 12px; }
+@media (max-width: 560px) { .flow { grid-template-columns: 1fr 1fr; } .toc ol { columns: 1; } }
+
+.figure { display: grid; grid-template-columns: 240px 1fr; gap: 24px; align-items: start; margin: 0 0 16px; }
+.figure img { width: 100%; border: 1px solid var(--line); border-radius: 12px; }
+@media (max-width: 560px) { .figure { grid-template-columns: 1fr; } .figure img { max-width: 260px; } }
+
+.foot { margin-top: 48px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+
+/* 印刷（A4 縦） */
+@page { size: A4; margin: 16mm 15mm 18mm; }
+@media print {
+  body { font-size: 10.5pt; line-height: 1.7; }
+  .page { max-width: none; padding: 0; }
+  .cover { margin-bottom: 18px; }
+  h2 { break-after: avoid; margin-top: 26px; }
+  h2.newpage { break-before: page; margin-top: 0; }
+  h3 { break-after: avoid; }
+  table, .note, .warn, .figure, .flow, pre, .steps > li { break-inside: avoid; }
+  a { color: var(--ink); text-decoration: none; }
+  .tbl { overflow: visible; }
+  .toc { break-inside: avoid; }
+  .figure { grid-template-columns: 170px 1fr; gap: 18px; }
+  .noprint { display: none; }
+}
