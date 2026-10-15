@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>内定者ポータル</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=M+PLUS+Rounded+1c:wght@400;500;700&family=Zen+Old+Mincho:wght@600;900&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app" id="app" data-tpl="standard">
+
+  <!-- 読み込み中・エラー -->
+  <div class="state wrap" id="v-state">
+    <div class="spinner" id="spinner" aria-hidden="true"></div>
+    <p id="state-msg">読み込み中…</p>
+  </div>
+
+  <!-- ログイン -->
+  <div class="login wrap" id="v-login" hidden>
+    <div class="login-co" id="login-co">内定者ポータル</div>
+    <h1>パスワードを入力してください</h1>
+    <form id="login-form" class="login-form" novalidate>
+      <label for="pw"><span id="login-label">ご案内したパスワード</span>
+        <input id="pw" type="password" autocomplete="current-password" inputmode="text" required>
+      </label>
+      <p class="err" id="login-err" role="alert" hidden></p>
+      <button class="btn" type="submit" id="login-btn">ポータルを開く</button>
+    </form>
+    <p class="hint">ログイン状態はこの端末に一定期間保存されます。期限が切れたとき、別の端末やブラウザで開くとき、閲覧履歴を消したときは、もう一度パスワードを入力してください。</p>
+    <p class="hint" id="login-contact">パスワードがわからない場合は、採用担当までご連絡ください。</p>
+  </div>
+
+  <!-- メイン -->
+  <div id="v-main" hidden>
+    <header class="hero" id="hero">
+      <div class="hero-img" id="hero-img"></div>
+      <div class="hero-in wrap">
+        <div class="co" id="hero-co"></div>
+        <h1 class="hello" id="hero-hello"></h1>
+        <p class="sub" id="hero-sub"></p>
+      </div>
+    </header>
+
+    <div class="wrap">
+      <div class="summary" id="summary">
+        <div class="stat"><div class="k">次の予定</div><div class="v" id="next-ev"></div></div>
+        <div class="stat"><div class="k">やることの進み具合</div><div class="v"><span id="prog-t"></span> <small>完了</small></div><div class="bar"><i id="prog-b"></i></div></div>
+      </div>
+
+      <section data-sec="home todo">
+        <div class="sec-h"><h2 data-t="見出し_やること"></h2><span class="cnt" id="todo-cnt"></span></div>
+        <div class="list" id="todos"></div>
+        <details class="fold" id="done-fold" hidden><summary id="done-sum"></summary><div class="donelist" id="donelist"></div></details>
+      </section>
+
+      <section data-sec="home schedule">
+        <div class="sec-h"><h2 data-t="見出し_予定"></h2><button class="ghost" id="add-open" type="button" hidden>＋ 自分の予定を追加</button></div>
+        <form class="card addform" id="addform" hidden>
+          <div class="row">
+            <label for="f-date">日付<input id="f-date" type="date" required></label>
+            <label for="f-start">開始<input id="f-start" type="time" value="10:00"></label>
+            <label for="f-end">終了<input id="f-end" type="time" value="17:00"></label>
+          </div>
+          <label for="f-title">内容<select id="f-title"></select></label>
+          <label for="f-memo">メモ（任意）<input id="f-memo" type="text" maxlength="100" placeholder="例：午前のみ、在宅"></label>
+          <div class="acts"><button class="btn sub2" type="button" id="add-cancel">やめる</button><button class="btn" type="submit" id="add-submit">追加する</button></div>
+          <p class="hint">追加した予定は採用担当にも共有されます。</p>
+        </form>
+        <div class="list" id="events"></div>
+      </section>
+
+      <section data-sec="home news">
+        <h2 data-t="見出し_お知らせ"></h2>
+        <div class="list" id="news"></div>
+      </section>
+
+      <section data-sec="contents" id="sec-links">
+        <h2 data-t="見出し_リンク"></h2>
+        <div class="sns" id="sns"></div>
+      </section>
+
+      <section data-sec="contents" id="sec-gallery">
+        <h2 data-t="見出し_ギャラリー"></h2>
+        <div class="gallery" id="gallery"></div>
+      </section>
+
+      <section data-sec="contents" id="sec-contents">
+        <h2 data-t="見出し_コンテンツ"></h2>
+        <div class="list" id="contents"></div>
+      </section>
+
+      <footer class="foot">
+        <p id="foot-note"></p>
+        <button class="linkbtn" type="button" id="logout">この端末からログアウト</button>
+      </footer>
+    </div>
+
+    <nav class="tabs" aria-label="メニュー"><div class="tabs-in" role="tablist">
+      <button class="tab" role="tab" data-go="home" aria-selected="true"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7v9h-6v-6H9v6H3z"/></svg><span data-t="メニュー_ホーム"></span></button>
+      <button class="tab" role="tab" data-go="todo" aria-selected="false"><svg viewBox="0 0 24 24"><path d="M4 6h3M4 12h3M4 18h3M10 6h10M10 12h10M10 18h10"/></svg><span data-t="メニュー_やること"></span><span class="dot" id="dot-todo" hidden></span></button>
+      <button class="tab" role="tab" data-go="schedule" aria-selected="false"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-t="メニュー_予定"></span></button>
+      <button class="tab" role="tab" data-go="news" aria-selected="false"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 20a2 2 0 0 0 4 0"/></svg><span data-t="メニュー_お知らせ"></span><span class="dot" id="dot-news" hidden></span></button>
+      <button class="tab" role="tab" data-go="contents" aria-selected="false"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m10 9 5 3-5 3z"/></svg><span data-t="メニュー_会社を知る"></span></button>
+    </div></nav>
+  </div>
+</div>
+
+<!-- 詳細ページ（お知らせ・記事） -->
+<div class="detail" id="detail" hidden role="dialog" aria-modal="true" aria-labelledby="dt-title">
+  <div class="detail-bar wrap"><div class="detail-in"><button class="back" type="button" id="dt-back">← 戻る</button></div></div>
+  <div class="wrap"><article class="detail-in"><div class="meta" id="dt-meta"></div><h1 id="dt-title"></h1><div class="body" id="dt-body"></div><div class="links" id="dt-links"></div></article></div>
+</div>
+
+<!-- 写真の拡大 -->
+<div class="lightbox" id="lb" hidden><button type="button" id="lb-close">閉じる</button><figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure></div>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script src="clients.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
