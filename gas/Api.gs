@@ -120,8 +120,12 @@ function secret_() {
   return s;
 }
 
+/**
+ * スプレッドシートの ID も混ぜて署名する。
+ * テンプレートをコピーして鍵まで同じになっても、別の会社のトークンは通らない。
+ */
 function sign_(text) {
-  return hex_(Utilities.computeHmacSha256Signature(text, secret_()));
+  return hex_(Utilities.computeHmacSha256Signature(`${text}.${ss_().getId()}`, secret_()));
 }
 
 function makeToken_(studentId, generation, expires) {
